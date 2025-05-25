@@ -11,7 +11,8 @@ class DetectionEngine:
         self.signature_rules = self.load_signature_rules()
         self.training_data = []
 
-    def load_signature_rules(self):
+    @staticmethod
+    def load_signature_rules():
         return {
             'syn_flood': {
                 'condition': lambda features: (

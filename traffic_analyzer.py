@@ -36,7 +36,8 @@ class TrafficAnalyzer:
 
         return None
 
-    def extract_features(self, packet, stats):
+    @staticmethod
+    def extract_features(packet, stats):
         duration = stats['last_time'] - stats['start_time']
         duration = duration if duration > 0 else 1e-6  # Prevent zero division with small positive fallback
 
