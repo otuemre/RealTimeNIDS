@@ -31,9 +31,15 @@ class PacketCapture:
 
 if __name__ == "__main__":
     import time
+    import os
+
+    from dotenv import load_dotenv
+
+    load_dotenv()
+    interface = os.getenv("INTERFACE")
 
     sniffer = PacketCapture()
-    sniffer.start_capture(interface="\\Device\\NPF_{8DE4EA9F-FDC8-4DE4-8D63-D1AE347703C8}")
+    sniffer.start_capture(interface=interface)
 
     try:
         print("[*] Capturing packets for 10 seconds...")
