@@ -24,6 +24,9 @@ poetry.lock
 *.swp
 *.bak
 
+# Datasets
+*.csv
+
 # OS files
 .DS_Store
 Thumbs.db
