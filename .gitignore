@@ -27,6 +27,9 @@ poetry.lock
 # Datasets
 *.csv
 
+# Models
+*.joblib
+
 # OS files
 .DS_Store
 Thumbs.db
