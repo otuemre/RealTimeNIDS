@@ -25,31 +25,6 @@ class IntrusionDetectionSystem:
         print(f"[*] Starting capture on Interface {self.interface}")
         self.packet_capture.start_capture(self.interface)
 
-        ### FIT THE MODEL BEFORE DETECTION ###
-        print("[*] Collecting training data for anomaly detection...")
-        training_features = []
-
-        while len(training_features) < 100:
-            try:
-                packet = self.packet_capture.packet_queue.get(timeout=5)
-                features = self.traffic_analyzer.analyze_packet(packet)
-                if features:
-                    vec = [
-                        features['packet_size'],
-                        features['packet_rate'],
-                        features['byte_rate']
-                    ]
-                    training_features.append(vec)
-            except queue.Empty:
-                print("[!] Timeout while collecting training data.")
-                break
-
-        if len(training_features) > 0:
-            self.detection_engine.train_anomaly_detector(training_features)
-            print(f"[*] Trained IsolationForest on {len(training_features)} samples.")
-        else:
-            print("[!] No training data collected. Anomaly detection disabled.")
-
         ### DETECT THE ANOMALIES ###
         print("[*] Entering detection loop...")
 

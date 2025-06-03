@@ -1,15 +1,11 @@
-from sklearn.ensemble import IsolationForest
-import numpy as np
+import joblib
+import pandas as pd
 
 
 class DetectionEngine:
     def __init__(self):
-        self.anomaly_detector = IsolationForest(
-            contamination=0.1,
-            random_state=42
-        )
+        self.anomaly_detector = joblib.load('models/isolation_forest.joblib')
         self.signature_rules = self.load_signature_rules()
-        self.training_data = []
 
     @staticmethod
     def load_signature_rules():
@@ -28,9 +24,6 @@ class DetectionEngine:
             }
         }
 
-    def train_anomaly_detector(self, normal_traffic_data):
-        self.anomaly_detector.fit(normal_traffic_data)
-
     def detect_threats(self, features):
         threats = []
 
@@ -44,11 +37,11 @@ class DetectionEngine:
                 })
 
         # Anomaly-based detection
-        feature_vectors = np.array([[
-            features['packet_size'],
-            features['packet_rate'],
-            features['byte_rate'],
-        ]])
+        feature_vectors = pd.DataFrame([{
+            'packet_size': features['packet_size'],
+            'packet_rate': features['packet_rate'],
+            'byte_rate': features['byte_rate']
+        }])
 
         anomaly_score = self.anomaly_detector.score_samples(feature_vectors)[0]
         if anomaly_score < -0.5:
