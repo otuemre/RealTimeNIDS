@@ -51,7 +51,7 @@ class DetectionEngine:
         }])
 
         anomaly_score = self.anomaly_detector.score_samples(feature_vectors)[0]
-        if anomaly_score < -0.5:
+        if anomaly_score < -0.25:
             threats.append({
                 'type': 'anomaly',
                 'score': anomaly_score,
