@@ -38,9 +38,16 @@ class DetectionEngine:
 
         # Anomaly-based detection
         feature_vectors = pd.DataFrame([{
-            'packet_size': features['packet_size'],
-            'packet_rate': features['packet_rate'],
-            'byte_rate': features['byte_rate']
+            'flow_duration': features['flow_duration'],
+            'fwd_bytes': features['fwd_bytes'],
+            'bwd_bytes': features['bwd_bytes'],
+            'flow_bytes': features['flow_bytes'],
+            'flow_byte_rate': features['flow_byte_rate'],
+            'flow_packet_rate': features['flow_packet_rate'],
+            'pkt_size_avg': features['pkt_size_avg'],
+            'down_up_ratio': features['down_up_ratio'],
+            'fwd_pkt_rate': features['fwd_pkt_rate'],
+            'bwd_pkt_rate': features['bwd_pkt_rate']
         }])
 
         anomaly_score = self.anomaly_detector.score_samples(feature_vectors)[0]
