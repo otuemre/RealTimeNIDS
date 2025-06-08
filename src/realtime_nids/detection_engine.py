@@ -1,10 +1,16 @@
 import joblib
 import pandas as pd
 
+from pathlib import Path
+
 
 class DetectionEngine:
     def __init__(self):
-        self.anomaly_detector = joblib.load('models/isolation_forest.joblib')
+        # derive the 'models/' dir by going up two levels from this file
+        base_dir = Path(__file__).resolve().parent.parent.parent
+        model_path = base_dir / 'models' / 'isolation_forest.joblib'
+
+        self.anomaly_detector = joblib.load(model_path)
         self.threshold = -0.5256
         self.signature_rules = self.load_signature_rules()
 

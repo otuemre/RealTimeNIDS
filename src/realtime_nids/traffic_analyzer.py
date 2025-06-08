@@ -55,7 +55,7 @@ if __name__ == "__main__":
     import time
     import os
 
-    from packet_capture import PacketCapture
+    from src.realtime_nids.packet_capture import PacketCapture
     from dotenv import load_dotenv
 
     analyzer = TrafficAnalyzer()

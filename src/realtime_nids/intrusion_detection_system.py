@@ -5,10 +5,10 @@ from dotenv import load_dotenv
 from scapy.layers.inet import IP, TCP
 from sklearn.exceptions import NotFittedError
 
-from packet_capture import PacketCapture
-from traffic_analyzer import TrafficAnalyzer
-from detection_engine import DetectionEngine
-from alert_system import AlertSystem
+from src.realtime_nids.packet_capture import PacketCapture
+from src.realtime_nids.traffic_analyzer import TrafficAnalyzer
+from src.realtime_nids.detection_engine import DetectionEngine
+from src.realtime_nids.alert_system import AlertSystem
 
 
 class IntrusionDetectionSystem:
