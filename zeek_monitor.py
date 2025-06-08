@@ -8,6 +8,7 @@ CHECK_INTERVAL = 1  # seconds
 
 def tail_log(filepath, detector):
     seen_lines = set()
+    line_num = 0
 
     while True:
         if not os.path.exists(filepath):
@@ -58,7 +59,8 @@ def tail_log(filepath, detector):
 
                         threats = detector.detect_threats(features)
                         if threats:
-                            print('[!] Live Threat Detect:')
+                            print(f'[!] {line_num} Live Threat Detect:')
+                            line_num += 1
                             for t in threats:
                                 print(f"    → {t}")
                             print('-' * 40)

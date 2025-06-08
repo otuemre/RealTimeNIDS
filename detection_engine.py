@@ -5,6 +5,7 @@ import pandas as pd
 class DetectionEngine:
     def __init__(self):
         self.anomaly_detector = joblib.load('models/isolation_forest.joblib')
+        self.threshold = -0.5256
         self.signature_rules = self.load_signature_rules()
 
     @staticmethod
@@ -51,7 +52,7 @@ class DetectionEngine:
         }])
 
         anomaly_score = self.anomaly_detector.score_samples(feature_vectors)[0]
-        if anomaly_score < -0.25:
+        if anomaly_score < self.threshold:
             threats.append({
                 'type': 'anomaly',
                 'score': anomaly_score,
